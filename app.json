@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "leaflet-map-test",
-    "slug": "leaflet-map-test",
+    "name": "ufo-sighting",
+    "slug": "ufo-sighting",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
