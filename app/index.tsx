@@ -4,11 +4,11 @@ import { MapContainer, Marker, Popup, SVGOverlay, TileLayer, useMap, useMapEvent
 import 'leaflet/dist/leaflet.css';
 import L, { LatLngTuple } from "leaflet";
 import { View, Text } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const position: LatLngTuple = [51.505, -0.09];
 
-interface PointOfInterest {
+interface IPointOfInterest {
   name: string;
   location: {
     latitude: number;
@@ -16,8 +16,7 @@ interface PointOfInterest {
   };
 }
 
-
-const POINTS_OF_INTEREST : PointOfInterest[] = [
+const POINTS_OF_INTEREST : IPointOfInterest[] = [
     {
       name: "AP Hogeschool",
       location: {
@@ -66,7 +65,7 @@ const LocationHandler = ({addMarker} : LocationHandlerProps) => {
 
 const Index = () => {
 
-  const [pointsOfInterest, setPointsOfInterest] = useState<PointOfInterest[]>(POINTS_OF_INTEREST);
+  const [pointsOfInterest, setPointsOfInterest] = useState<IPointOfInterest[]>(POINTS_OF_INTEREST);
 
   const iconX = L.icon({
     iconUrl: 'https://raw.githubusercontent.com/similonap/public_icons/refs/heads/main/location-pin.png',
