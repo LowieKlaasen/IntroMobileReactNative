@@ -1,17 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 
+interface ILocation {
+  latitude: number,
+  longitude: number
+}
+
+interface ISighting {
+  id : number,
+  witnessName : string,
+  location : ILocation,
+  description : string,
+  picture : string,
+  status : string,
+  dateTime : string,
+  witnessContact : string
+}
+
 const API_URL = 'https://sampleapis.assimilate.be/ufo/sightings'; // Replace with your actual API URL
 
 const List = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<ISighting[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(API_URL);
-        const json = await response.json();
+        const json : ISighting[] = await response.json();
         setData(json);
       } catch (error) {
         console.error('Error fetching data:', error);
