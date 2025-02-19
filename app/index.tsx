@@ -66,12 +66,31 @@ const LocationHandler = ({addMarker} : LocationHandlerProps) => {
 const Index = () => {
 
   const [pointsOfInterest, setPointsOfInterest] = useState<IPointOfInterest[]>(POINTS_OF_INTEREST);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const iconX = L.icon({
     iconUrl: 'https://raw.githubusercontent.com/similonap/public_icons/refs/heads/main/location-pin.png',
     iconSize: [48, 48],
     popupAnchor: [-3, 0],
   });
+
+  const fetchPointsOfInterest = async () => {
+    try {
+      const response = await fetch("https://sampleapis.assimilate.be/ufo/sightings");
+      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+      
+      const data: IPointOfInterest[] = await response.json();
+      setPointsOfInterest(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPointsOfInterest();
+  }, []);
 
   const addPointOfInterest = (lat: number, lng: number) => {
     setPointsOfInterest([...pointsOfInterest, {name: "New Point", location: {latitude: lat, longitude: lng}}]);
@@ -95,7 +114,7 @@ const Index = () => {
         <Marker key={index} position={[point.location.latitude, point.location.longitude]} icon={iconX}>
           <Popup >
              <View style={{backgroundColor: 'white', padding: 10, width: 100}}>
-                <Text>{point.name}</Text>
+                <Text>{point.witnessName}</Text>
              </View>
           </Popup>
         </Marker>
