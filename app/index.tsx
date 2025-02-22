@@ -50,6 +50,8 @@ const POINTS_OF_INTEREST : IPointOfInterest[] = [
     }
 ];
 
+let sightings : ISighting[] = [];
+
 interface LocationHandlerProps {
   addMarker: (lat: number, lng: number) => void;
 }
@@ -68,7 +70,7 @@ const LocationHandler = ({addMarker} : LocationHandlerProps) => {
 
 const Index = () => {
 
-  const [pointsOfInterest, setPointsOfInterest] = useState<IPointOfInterest[]>(POINTS_OF_INTEREST);
+  const [pointsOfInterest, setPointsOfInterest] = useState<ISighting[]>(sightings);
   const [loading, setLoading] = useState<boolean>(true);
 
   const iconX = L.icon({
@@ -77,12 +79,12 @@ const Index = () => {
     popupAnchor: [-3, 0],
   });
 
-  const fetchPointsOfInterest = async () => {
+  const fetchSightings = async () => {
     try {
       const response = await fetch("https://sampleapis.assimilate.be/ufo/sightings");
       if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
       
-      const data: IPointOfInterest[] = await response.json();
+      const data: ISighting[] = await response.json();
       setPointsOfInterest(data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -92,7 +94,7 @@ const Index = () => {
   };
 
   useEffect(() => {
-    fetchPointsOfInterest();
+    fetchSightings();
   }, []);
 
   const addPointOfInterest = (lat: number, lng: number) => {
