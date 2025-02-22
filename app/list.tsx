@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
+import ILocation from './interfaces/ILocation';
+import ISighting from './interfaces/ISighting';
 
-interface ILocation {
-  latitude: number,
-  longitude: number
-}
+// interface ILocation {
+//   latitude: number,
+//   longitude: number
+// }
 
-interface ISighting {
-  id : number,
-  witnessName : string,
-  location : ILocation,
-  description : string,
-  picture : string,
-  status : string,
-  dateTime : string,
-  witnessContact : string
-}
+// interface ISighting {
+//   id : number,
+//   witnessName : string,
+//   location : ILocation,
+//   description : string,
+//   picture : string,
+//   status : string,
+//   dateTime : string,
+//   witnessContact : string
+// }
 
 const API_URL = 'https://sampleapis.assimilate.be/ufo/sightings'; // Replace with your actual API URL
 
