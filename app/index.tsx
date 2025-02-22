@@ -5,16 +5,19 @@ import 'leaflet/dist/leaflet.css';
 import L, { LatLngTuple } from "leaflet";
 import { View, Text } from "react-native";
 import { useEffect, useState } from "react";
+import ILocation from "./interfaces/ILocation";
+import ISighting from "./interfaces/ISighting";
+import IPointOfInterest from "./interfaces/IPointOfInterest";
 
 const position: LatLngTuple = [51.505, -0.09];
 
-interface IPointOfInterest {
-  name: string;
-  location: {
-    latitude: number;
-    longitude: number;
-  };
-}
+// interface IPointOfInterest {
+//   name: string;
+//   location: {
+//     latitude: number;
+//     longitude: number;
+//   };
+// }
 
 const POINTS_OF_INTEREST : IPointOfInterest[] = [
     {
