@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
-import ILocation from './interfaces/ILocation';
-import ISighting from './interfaces/ISighting';
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  ActivityIndicator,
+  StyleSheet,
+} from "react-native";
+import ILocation from "./interfaces/ILocation";
+import ISighting from "./interfaces/ISighting";
 
 // interface ILocation {
 //   latitude: number,
@@ -19,7 +25,7 @@ import ISighting from './interfaces/ISighting';
 //   witnessContact : string
 // }
 
-const API_URL = 'https://sampleapis.assimilate.be/ufo/sightings';
+const API_URL = "https://sampleapis.assimilate.be/ufo/sightings";
 
 const List = () => {
   const [data, setData] = useState<ISighting[]>([]);
@@ -29,10 +35,10 @@ const List = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(API_URL);
-        const json : ISighting[] = await response.json();
+        const json: ISighting[] = await response.json();
         setData(json);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
@@ -65,36 +71,46 @@ const List = () => {
 
   return (
     <View style={styles.container}>
-      <div><a href="/test">TestLink</a></div>
+      <div>
+        <a href="/test">TestLink</a>
+      </div>
       <FlatList
         data={data}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <View style={styles.itemContainer}>
-            <Text style={styles.itemTitle}> {item.id}. {item.witnessName} </Text>
-            <Text style={styles.itemInfo}> {item.location.latitude}. {item.location.longitude} </Text>
+            <Text style={styles.itemTitle}>
+              {" "}
+              <a href={"/sightings/" + item.id}>
+                {item.id}. {item.witnessName}
+              </a>{" "}
+            </Text>
+            <Text style={styles.itemInfo}>
+              {" "}
+              {item.location.latitude}. {item.location.longitude}{" "}
+            </Text>
           </View>
         )}
       />
     </View>
-  )
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   loaderContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   itemContainer: {
     padding: 10,
     marginVertical: 5,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: "#f9f9f9",
     borderRadius: 5,
   },
   itemText: {
@@ -106,8 +122,8 @@ const styles = StyleSheet.create({
   itemInfo: {
     fontSize: 12,
     color: "grey",
-    fontStyle: "italic"
-  }
+    fontStyle: "italic",
+  },
 });
 
 export default List;
