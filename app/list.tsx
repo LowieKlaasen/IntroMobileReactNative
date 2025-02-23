@@ -19,7 +19,7 @@ import ISighting from './interfaces/ISighting';
 //   witnessContact : string
 // }
 
-const API_URL = 'https://sampleapis.assimilate.be/ufo/sightings'; // Replace with your actual API URL
+const API_URL = 'https://sampleapis.assimilate.be/ufo/sightings';
 
 const List = () => {
   const [data, setData] = useState<ISighting[]>([]);
@@ -65,6 +65,7 @@ const List = () => {
 
   return (
     <View style={styles.container}>
+      <div><a href="/test">TestLink</a></div>
       <FlatList
         data={data}
         keyExtractor={(item, index) => index.toString()}
