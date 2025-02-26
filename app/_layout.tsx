@@ -39,6 +39,15 @@ export default function RootLayout() {
           headerShown: false,
         }}
       />
+      <Tabs.Screen
+        name="addSighting"
+        options={{
+          title: "New Sighting",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="eye-plus" color={color} size={size} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }
