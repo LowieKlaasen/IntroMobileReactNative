@@ -143,7 +143,9 @@ const Index = () => {
         >
           <Popup>
             <View style={{ backgroundColor: "white", padding: 10, width: 100 }}>
-              <Text>{point.witnessName}</Text>
+              <Text>
+                <a href={"/sightings/" + point.id}>{point.witnessName}</a>
+              </Text>
             </View>
           </Popup>
         </Marker>

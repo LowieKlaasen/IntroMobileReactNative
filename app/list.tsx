@@ -55,25 +55,8 @@ const List = () => {
     );
   }
 
-  // return (
-  //   <View style={styles.container}>
-  //     <FlatList
-  //       data={data}
-  //       keyExtractor={(item, index) => index.toString()}
-  //       renderItem={({ item }) => (
-  //         <View style={styles.itemContainer}>
-  //           <Text style={styles.itemText}>{JSON.stringify(item, null, 2)}</Text>
-  //         </View>
-  //       )}
-  //     />
-  //   </View>
-  // );
-
   return (
     <View style={styles.container}>
-      <div>
-        <a href="/test">TestLink</a>
-      </div>
       <FlatList
         data={data}
         keyExtractor={(item, index) => index.toString()}
