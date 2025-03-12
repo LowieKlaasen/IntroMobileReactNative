@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { View, Text, Button, TextInput, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -10,25 +9,34 @@ interface Student {
 
 const Test = () => {
   const [studentName, setStudentName] = useState("");
+  const [nameToGet, setNameToGet] = useState("");
 
   const storeData = async () => {
     let student: Student = {
       name: studentName,
       age: Math.floor(Math.random() * 10) + 18,
     };
-    await AsyncStorage.setItem("randomStudent", JSON.stringify(student));
 
-    setStudentName("");
+    try {
+      await AsyncStorage.setItem(student.name, JSON.stringify(student));
+      console.log(`Stored: ${student.name} - ${student.age}`);
+      setStudentName("");
+    } catch (error) {
+      console.log("Error storing data:", error);
+    }
   };
 
-  const getData = async () => {
-    const value = await AsyncStorage.getItem("randomStudent");
-
-    if (value !== null) {
-      let student: Student = JSON.parse(value);
-      console.log(`${student.name} is ${student.age} years old`);
-    } else {
-      console.log("No Data found");
+  const getData = async (name: string) => {
+    try {
+      const value = await AsyncStorage.getItem(name);
+      if (value !== null) {
+        let student: Student = JSON.parse(value);
+        console.log(`${student.name} is ${student.age} years old`);
+      } else {
+        console.log("No Data found for this name");
+      }
+    } catch (error) {
+      console.log("Error retrieving data:", error);
     }
   };
 
@@ -44,13 +52,26 @@ const Test = () => {
       />
 
       <Button title="Store Data" onPress={storeData} />
-      <Button title="Load Data" onPress={getData} />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Enter name you want to retrieve"
+        value={nameToGet}
+        onChangeText={setNameToGet}
+      />
+
+      <Button title="Load Data" onPress={() => getData(nameToGet)} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  input: {},
+  input: {
+    borderWidth: 1,
+    padding: 8,
+    margin: 10,
+    width: 200,
+  },
 });
 
 export default Test;
