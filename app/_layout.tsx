@@ -48,6 +48,12 @@ export default function RootLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="data"
+        options={{
+          href: null,
+        }}
+      />
     </Tabs>
   );
 }
