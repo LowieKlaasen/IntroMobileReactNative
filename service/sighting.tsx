@@ -24,8 +24,13 @@ const useSightings = () => {
           const response = await fetch(API_URL);
           const json: ISighting[] = await response.json();
 
-          // Store the fetched sightings in AsyncStorage
-          await AsyncStorage.setItem("sightings", JSON.stringify(json));
+          // Store each sighting separately in AsyncStorage
+          json.forEach(async (sighting) => {
+            await AsyncStorage.setItem(
+              sighting.id.toString(),
+              JSON.stringify(sighting)
+            );
+          });
 
           setData(json); // Set the data state
           setLoading(false); // Set loading to false

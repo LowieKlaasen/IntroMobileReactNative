@@ -1,14 +1,5 @@
-import { gridLayer } from "leaflet";
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  Button,
-  Alert,
-  Text,
-  Pressable,
-} from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, TextInput, Button, Text } from "react-native";
 import ISighting from "./interfaces/ISighting";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
