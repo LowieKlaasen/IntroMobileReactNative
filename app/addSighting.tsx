@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { View, StyleSheet, TextInput, Button, Text } from "react-native";
 import ISighting from "./interfaces/ISighting";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import useSightings from "@/service/sighting";
 
 const AddSighting = () => {
+  const { refreshSightings } = useSightings();
   const [id, setId] = useState(0);
   const [title, setTitle] = useState("");
   const [witnessName, setWitnessName] = useState("");
@@ -66,6 +68,7 @@ const AddSighting = () => {
         sighting.id.toString(),
         JSON.stringify(sighting)
       );
+      await refreshSightings();
       console.log(`Stored: ${sighting.id} - ${sighting.witnessName}`);
       setWitnessName("");
     } catch (error) {

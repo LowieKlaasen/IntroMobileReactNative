@@ -26,7 +26,7 @@ import useSightings from "@/service/sighting";
 //   witnessContact : string
 // }
 
-const API_URL = "https://sampleapis.assimilate.be/ufo/sightings";
+// const API_URL = "https://sampleapis.assimilate.be/ufo/sightings";
 
 const List = () => {
   // const [data, setData] = useState<ISighting[]>([]);
