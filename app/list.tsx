@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import ILocation from "./interfaces/ILocation";
 import ISighting from "./interfaces/ISighting";
+import useSightings from "@/service/sighting";
 
 // interface ILocation {
 //   latitude: number,
@@ -28,24 +29,25 @@ import ISighting from "./interfaces/ISighting";
 const API_URL = "https://sampleapis.assimilate.be/ufo/sightings";
 
 const List = () => {
-  const [data, setData] = useState<ISighting[]>([]);
-  const [loading, setLoading] = useState(true);
+  // const [data, setData] = useState<ISighting[]>([]);
+  const { data, loading } = useSightings();
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(API_URL);
-        const json: ISighting[] = await response.json();
-        setData(json);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch(API_URL);
+  //       const json: ISighting[] = await response.json();
+  //       setData(json);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   if (loading) {
     return (
