@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import ILocation from "./interfaces/ILocation";
 import ISighting from "./interfaces/ISighting";
 import IPointOfInterest from "./interfaces/IPointOfInterest";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const position: LatLngTuple = [51.505, -0.09];
 
@@ -119,8 +120,9 @@ const Index = () => {
   return (
     <MapContainer
       center={{ lat: 51.505, lng: -0.09 }}
-      zoom={13}
-      scrollWheelZoom={false}
+      zoom={20}
+      minZoom={2}
+      scrollWheelZoom={true}
       style={{
         width: "100%",
         height: "100%",
