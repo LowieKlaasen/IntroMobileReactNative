@@ -9,6 +9,7 @@ import {
 import ILocation from "./interfaces/ILocation";
 import ISighting from "./interfaces/ISighting";
 import useSightings from "@/service/sighting";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // interface ILocation {
 //   latitude: number,

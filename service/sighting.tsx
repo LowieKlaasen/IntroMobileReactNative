@@ -66,15 +66,15 @@ const useSightings = () => {
 
   const fetchSightingsFromAsyncStorage = async () => {
     try {
-      // Check if sightings are stored in AsyncStorage
+      // Check if sightings are already stored in AsyncStorage
       const storedSightings = await AsyncStorage.getItem("sightings");
 
       if (storedSightings) {
-        // If sightings exist, use them
+        // If sightings are found, use them
         setData(JSON.parse(storedSightings));
         setLoading(false);
       } else {
-        // If no sightings are stored, fetch from the API
+        // If no sightings are found, fetch from the API
         await fetchSightingsFromAPI();
       }
     } catch (error) {
@@ -99,14 +99,14 @@ const useSightings = () => {
     }
   };
 
-  // Refresh function to re-fetch sightings from AsyncStorage
+  // Function to refresh the sightings from AsyncStorage
   const refreshSightings = async () => {
     setLoading(true); // Set loading state while fetching
-    await fetchSightingsFromAsyncStorage(); // Re-fetch data
+    await fetchSightingsFromAsyncStorage(); // Re-fetch the data
   };
 
   useEffect(() => {
-    fetchSightingsFromAsyncStorage(); // Fetch data when component mounts
+    fetchSightingsFromAsyncStorage(); // Fetch data when the component mounts
   }, []); // Empty dependency array ensures this runs only once on initial load
 
   return { data, loading, refreshSightings };

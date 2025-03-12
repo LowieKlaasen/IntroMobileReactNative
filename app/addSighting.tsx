@@ -5,14 +5,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import useSightings from "@/service/sighting";
 
 const AddSighting = () => {
-  const { refreshSightings } = useSightings();
   const [id, setId] = useState(0);
   const [title, setTitle] = useState("");
   const [witnessName, setWitnessName] = useState("");
   const [description, setDescription] = useState("");
   const [email, setEmail] = useState("");
   const [picture, setPicture] = useState("");
-  const [status, setStatus] = useState("");
 
   const handleSubmit = () => {
     // Alert.alert("Submitted Text:", title);
@@ -68,7 +66,6 @@ const AddSighting = () => {
         sighting.id.toString(),
         JSON.stringify(sighting)
       );
-      await refreshSightings();
       console.log(`Stored: ${sighting.id} - ${sighting.witnessName}`);
       setWitnessName("");
     } catch (error) {
