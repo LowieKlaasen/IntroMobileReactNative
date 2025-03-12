@@ -40,6 +40,35 @@ const Test = () => {
     }
   };
 
+  const getAllData = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys(); // Get all keys
+      if (keys.length === 0) {
+        console.log("No data found");
+        return;
+      }
+
+      const values = await AsyncStorage.multiGet(keys); // Get all key-value pairs
+      const students = values.map(([key, value]) => {
+        return value ? JSON.parse(value) : null; // Parse JSON
+      });
+
+      console.log("All Students:", students);
+    } catch (error) {
+      console.log("Error retrieving all data:", error);
+    }
+  };
+
+  const clearData = async () => {
+    AsyncStorage.clear()
+      .then(() => {
+        console.log("All data cleared");
+      })
+      .catch((error) => {
+        console.error("Error clearing data: ", error);
+      });
+  };
+
   return (
     <View>
       <Text>AsyncStorage Example</Text>
@@ -61,6 +90,10 @@ const Test = () => {
       />
 
       <Button title="Load Data" onPress={() => getData(nameToGet)} />
+
+      <Button title="Load All Data" onPress={getAllData} />
+
+      <Button title="Clear data" onPress={clearData} color="red" />
     </View>
   );
 };
