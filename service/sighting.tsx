@@ -1,4 +1,3 @@
-// sighting.ts
 import React, { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ISighting from "@/app/interfaces/ISighting";
