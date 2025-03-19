@@ -14,6 +14,8 @@ import { useEffect, useState } from "react";
 import useSightings from "@/service/sighting";
 import ISighting from "./interfaces/ISighting";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 interface LocationHandlerProps {
   addMarker: (lat: number, lng: number) => void;
 }
@@ -45,20 +47,58 @@ const Index = () => {
     popupAnchor: [-3, 0],
   });
 
-  const addPointOfInterest = (lat: number, lng: number) => {
-    setPointsOfInterest([
-      ...pointsOfInterest,
-      {
-        id: Date.now(),
+  const getNextId = async (): Promise<number> => {
+    try {
+      const storedSightings = await AsyncStorage.getItem("sightings");
+      const sightings = storedSightings ? JSON.parse(storedSightings) : [];
+
+      if (sightings.length === 0) return 1; // Start from 1 if no entries exist
+
+      const highestId = Math.max(
+        ...sightings.map((s: { id: number }) => s.id),
+        0
+      );
+      return highestId + 1;
+    } catch (error) {
+      console.log("Error retrieving ID:", error);
+      return 1; // Default to 1 in case of an error
+    }
+  };
+
+  const addPointOfInterest = async (lat: number, lng: number) => {
+    try {
+      const nextId = await getNextId();
+
+      const newPoint = {
+        id: nextId,
         witnessName: "New Point",
         location: { latitude: lat, longitude: lng },
         description: "",
         picture: "",
         status: "",
-        dateTime: "",
+        dateTime: Date.now().toString(),
         witnessContact: "",
-      },
-    ]);
+      };
+
+      // Get existing data from AsyncStorage
+      const storedSightings = await AsyncStorage.getItem("sightings");
+      const existingSightings = storedSightings
+        ? JSON.parse(storedSightings)
+        : [];
+
+      // Add new point to existing list
+      const updatedSightings = [...existingSightings, newPoint];
+
+      // Save back to AsyncStorage
+      await AsyncStorage.setItem("sightings", JSON.stringify(updatedSightings));
+
+      // Update local state
+      setPointsOfInterest((prev) => [...prev, newPoint]);
+
+      console.log("New point added and stored:", newPoint);
+    } catch (error) {
+      console.log("Error adding point:", error);
+    }
   };
 
   return (
